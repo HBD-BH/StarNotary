@@ -40,8 +40,13 @@ it('lets user1 get the funds after the sale', async() => {
     let balanceOfUser1BeforeTransaction = await web3.eth.getBalance(user1);
     await instance.buyStar(starId, {from: user2, value: balance}); // Could use 'gas' parameter, as well
     let balanceOfUser1AfterTransaction = await web3.eth.getBalance(user1);
-    let value1 = Number(balanceOfUser1BeforeTransaction) + Number(starPrice);
-    let value2 = Number(balanceOfUser1AfterTransaction);
+    //console.log(balanceOfUser1BeforeTransaction);
+    //console.log(starPrice);
+    //console.log(balanceOfUser1AfterTransaction);
+    let value1 = Number(BigNumber(balanceOfUser1BeforeTransaction).plus(BigNumber(starPrice)));
+    //console.log(value1);
+    let value2 = balanceOfUser1AfterTransaction;
+    //console.log(value2);
     assert.equal(value1, value2, "Balance of original did not increase");
 });
 
@@ -168,6 +173,7 @@ it('lookUptokenIdToStarInfo test', async() => {
     await instance.createStar(starName, starId, {from: user1});
     // Query name
     let starNameReturned = await instance.lookUptokenIdToStarInfo(starId);
+    //console.log(starNameReturned);
     // Check for equality
     assert.equal(starNameReturned, starName, "Queried star name did not match star name when creating token" )
 });
