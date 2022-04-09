@@ -93,6 +93,20 @@ it('can add the token name and token symbol properly', async() => {
     // Call the name and symbol properties in your Smart Contract and compare with the name and symbol provided
     // Interpreting this test according to the hints mentioned in the project rubric (https://review.udacity.com/#:~:text=token%20name%20and%20token%20symbol) and in this pull request: https://github.com/udacity/nd1309-p2-Decentralized-Star-Notary-Service-Starter-Code/issues/13
     // Namely, not star name and star symbol, but token/contract name and token/contract symbol
+
+    let instance = await StarNotary.deployed();
+
+    // Initial names as defined in the contract:
+    let initialName = "CoolStars";
+    let initialSymbol  = "CST";
+
+    // Get name and symbol from the contract
+    let contractName = await instance.name();
+    let contractSymbol = await instance.symbol();
+
+    assert.equal(initialName, contractName, "Names did not match");
+    assert.equal(initialSymbol, contractSymbol, "Symbols did not match");
+
 });
 
 it('lets 2 users exchange stars', async() => {
