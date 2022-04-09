@@ -51,8 +51,8 @@ contract StarNotary is ERC721 {
         uint256 starCost = starsForSale[_tokenId];
         address ownerAddress = ownerOf(_tokenId);
         require(msg.value > starCost, "You need to have enough Ether");
-        // Change to transferFrom with prior approval of sender
-        //_transferFrom(ownerAddress, msg.sender, _tokenId); // We can't use _addTokenTo or_removeTokenFrom functions, now we have to use _transferFrom
+        // TODO: Change to safeTransferFrom with prior approval of sender
+        //safeTransferFrom(ownerAddress, msg.sender, _tokenId); // We can't use _addTokenTo or_removeTokenFrom functions, now we have to use _transferFrom
         _transfer(ownerAddress, msg.sender, _tokenId); // We can't use _addTokenTo or_removeTokenFrom functions, now we have to use transfer (as transferFrom requires prior approval)
         address payable ownerAddressPayable = _make_payable(ownerAddress); // We need to make this conversion to be able to use transfer() function to transfer ethers
         ownerAddressPayable.transfer(starCost);
@@ -75,8 +75,19 @@ contract StarNotary is ERC721 {
     function exchangeStars(uint256 _tokenId1, uint256 _tokenId2) public {
         //1. Passing to star tokenId you will need to check if the owner of _tokenId1 or _tokenId2 is the sender
         //2. You don't have to check for the price of the token (star)
-        //3. Get the owner of the two tokens (ownerOf(_tokenId1), ownerOf(_tokenId2)
+        //3. Get the owner of the two tokens (ownerOf(_tokenId1), ownerOf(_tokenId2))
         //4. Use _transferFrom function to exchange the tokens.
+
+        // Check if sender owns one of the tokens
+        require((ownerOf(_tokenId1) == msg.sender) || (ownerOf(_tokenId2) == msg.sender), "Can only exchange stars if you own at least one of them");
+
+        // Get token owners
+        address owner1 = ownerOf(_tokenId1);
+        address owner2 = ownerOf(_tokenId2);
+
+        // Use _transfer (no validity checks) to exchange tokens
+        _transfer(owner1, owner2, _tokenId1); 
+        _transfer(owner2, owner1, _tokenId2);  
     }
 
     // Implement Task 1 Transfer Stars
