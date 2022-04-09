@@ -15,14 +15,17 @@ contract StarNotary is ERC721 {
     // Implement Task 1 Add a name and symbol properties
     // name: Is a short name to your token
     // symbol: Is a short string like 'USD' -> 'American Dollar'
+    string myName = "CoolStars";
+    string mySymbol = "CST";
+    // Implementation done in current ERC721 implementation
 
     // mapping the Star with the Owner Address
     mapping(uint256 => Star) public tokenIdToStarInfo;
     // mapping the TokenId and price
     mapping(uint256 => uint256) public starsForSale;
  
-    // Cudos to Markus here: https://ethereum.stackexchange.com/a/83270
-    constructor() ERC721("CoolStars", "CST") { }
+    // Thanks to Markus here: https://ethereum.stackexchange.com/a/83270
+    constructor() ERC721(myName, mySymbol) { }
 
     // Create Star using the Struct
     function createStar(string memory _name, uint256 _tokenId) public { // Passing the name and tokenId as a parameters
@@ -57,12 +60,15 @@ contract StarNotary is ERC721 {
             address payable senderAddressPayable = _make_payable(msg.sender);
             senderAddressPayable.transfer(msg.value - starCost);
         }
-        starsForSale[_tokenId] = 0;
+        starsForSale[_tokenId] = 0; // Remove the token ID from the starsForSale mapping
     }
 
     // Implement Task 1 lookUptokenIdToStarInfo
     function lookUptokenIdToStarInfo (uint _tokenId) public view returns (string memory) {
         //1. You should return the Star saved in tokenIdToStarInfo mapping
+        string memory starName = tokenIdToStarInfo[_tokenId].name;
+        require(keccak256(bytes(starName)) != keccak256(bytes("")), "Queried star info for nonexistent token ID"); // Thanks to Greg Mikeska: https://ethereum.stackexchange.com/a/11754
+        return starName;
     }
 
     // Implement Task 1 Exchange Stars function
