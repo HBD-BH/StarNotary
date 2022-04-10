@@ -1,10 +1,10 @@
-# Smart Contracts, Tokens and Dapps 
+# Smart Contract with Star NFTs
 
 This repository is my solution to the second project of the Udacity "Blockchain Developer" Nanodegree. Below, you find some more information as well as some helpful screenshots.
 
 ## What problem does this application solve?
-
-
+This application is a simple frontend to interact with a smart contract that stores and manages non-fungible star tokens. In the web app, you can create and look up stars, and the contract has some more functionality like buying or exchanging stars.
+The contract is deployed on the Rinkeby network with address [0x1c617a8b8d88970ede710395ace9d8421f75e434](https://rinkeby.etherscan.io/address/0x1c617a8b8d88970ede710395ace9d8421f75e434). Name of the token: `CoolStars`, token symbol: `CST`. (Refer to `contracts/StarNotary.sol`)
 
 ## Dependencies
 
@@ -24,7 +24,11 @@ Within `package.json`:
 - "ethereumjs-tx": "^2.1.2"
 
 ## Understanding the code
-
+- `contracts/StarNotary.sol`: the smart contract for our star blockchain. It inherits from `node_modules/@openzeppelin/token/ERC721/ERC721.sol`
+- `tests/TestStarNotary.js`: the test cases for StarNotary
+- `migrations/2_deploy_contracts`: the settings to deploy StarNotary
+- `truffle-config.js`: the truffle configuration, including development and rinkeby network configuration. Attention: for the project to work on rinkeby, you need to store your own rinkeby account mnemonic in a file named `.secret`, since I included mine in `.gitignore` for data protection reasons.
+- `app/src/index.js` and `app/src/index.html`: the code for the frontend.
 
 
 ## Run the application
@@ -52,11 +56,12 @@ cd app
 npm run dev
 ```
 
-## Screenshots and links showing app functionality
+## Screenshots showing app functionality
 
 1. The frontend: 
 - Creating a star
     ![Picture of the frontend when creating a star](pic/frontendCreate.png)
+(This is a screenshot after confirming, in order to see the owner correctly displayed in the status field.)
 
 - Confirming in MetaMask
     ![Picture of the frontend including the MetaMask transaction confirmation](pic/frontendConfirm.png)
@@ -64,6 +69,5 @@ npm run dev
 - Looking up the star
     ![Picture of the frontend when looking up a star](pic/frontendLookup.png)
 
-2. The contract on [Etherscan](https://rinkeby.etherscan.io/address/0x1c617a8b8d88970ede710395ace9d8421f75e434). Name of the token: `CoolStars`, token symbol: `CST`. (Refer to `contracts/StarNotary.sol`)
 
 
