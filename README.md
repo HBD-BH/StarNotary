@@ -50,11 +50,12 @@ npm install
 
 2. Start ganache: `ganache-cli` (Check whether port is identical with the one in `truffle-config.js`)
 
-3. Set up and start Truffle by running (in the root directory): `truffle migrate --reset`, then  `truffle test` (you can use `truffle console`, first)
-```
+3. Set up and start Truffle by running (in the root directory): 
+```bash
 npm init
 npm install
 truffle migrate --reset --network development
+truffle test # Should give you 9 passing tests
 ```
 
 4. Start frontend:
