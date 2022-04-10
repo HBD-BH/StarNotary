@@ -52,9 +52,17 @@ cd app
 npm run dev
 ```
 
-## Screenshots showing app functionality
+## Screenshots and links showing app functionality
 
-1. Showing front end
+1. The frontend: 
+- Creating a star
+    ![Picture of the frontend when creating a star](pic/frontendCreate.png)
+
+- Confirming in MetaMask
+    ![Picture of the frontend including the MetaMask transaction confirmation](pic/frontendConfirm.png)
+
+- Looking up the star
+    ![Picture of the frontend when looking up a star](pic/frontendLookup.png)
 
 2. The contract on [Etherscan](https://rinkeby.etherscan.io/address/0x1c617a8b8d88970ede710395ace9d8421f75e434). Name of the token: `CoolStars`, token symbol: `CST`. (Refer to `contracts/StarNotary.sol`)
 
