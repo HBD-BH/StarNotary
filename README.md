@@ -38,9 +38,9 @@ Within `package.json`:
 cd app
 # Remove the node_modules  
 # remove packages
-rm -rf node_modules
+rm -rf node_modules # Not necessary in case you cloned this repo, as app/node_modules is in .gitignore
 # clean cache
-npm cache clean
+npm cache clean # Not necessary in current version of npm
 rm package-lock.json
 # initialize npm (you can accept defaults)
 npm init
@@ -48,13 +48,21 @@ npm init
 npm install
 ```
 
-2. Start Truffle tests by running: `truffle migrate --reset`, then  `truffle test` (you can use `truffle console`, first)
+2. Start ganache: `ganache-cli` (Check whether port is identical with the one in `truffle-config.js`)
 
-3. Start frontend:
+3. Set up and start Truffle by running (in the root directory): `truffle migrate --reset`, then  `truffle test` (you can use `truffle console`, first)
+```
+npm init
+npm install
+truffle migrate --reset --network development
+```
+
+4. Start frontend:
 ```bash
 cd app
 npm run dev
 ```
+Then open the shown address (probably http://localhost:8080/) in you browser and log into MetaMask (maybe you have to import an account from the development network) to interact with the smart contract.
 
 ## Screenshots showing app functionality
 
